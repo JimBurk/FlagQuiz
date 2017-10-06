@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
 
         mFlagImageView = (ImageView) findViewById(R.id.flagImageView);
-        mQuestionNumberTextView = (TextView) findViewById(R.id.answerTextView);
+        mQuestionNumberTextView = (TextView) findViewById(R.id.questionNumberTextView);
         mAnswerTextView = (TextView) findViewById(R.id.answerTextView);
 
         mQuestionNumberTextView.setText(getString(R.string.question, 1, FLAGS_IN_QUIZ));
@@ -66,12 +66,6 @@ public class MainActivity extends AppCompatActivity {
         mButtons[1] = (Button) findViewById(R.id.button2);
         mButtons[2] = (Button) findViewById(R.id.button3);
         mButtons[3] = (Button) findViewById(R.id.button4);
-
-        try {
-            mAllCountriesList = JSONLoader.loadJSONFromAsset(this);
-        } catch (IOException e) {
-            Log.e(TAG, "Error loading JSON file", e);
-        }
 
         resetQuiz();
 
@@ -96,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         while (mQuizCountriesList.size() < FLAGS_IN_QUIZ) {
             randomPosition = rng.nextInt(size);
 
-            Country randomCountry = mQuizCountriesList.get(randomPosition);
+            Country randomCountry = mAllCountriesList.get(randomPosition);
             if (!mQuizCountriesList.contains(randomCountry))
                 mQuizCountriesList.add(randomCountry);
         }
@@ -157,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < mButtons.length; i++) {
             mButtons[i].setEnabled(true);
-
             mButtons[i].setText(mAllCountriesList.get(i).getName());
         }
 
@@ -201,13 +194,14 @@ public class MainActivity extends AppCompatActivity {
                 // Show an alert dialog and reset quiz
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(getString(R.string.results, mTotalGuesses, (double) mCorrectGuesses / mTotalGuesses));
+                builder.setCancelable(false);
                 builder.setPositiveButton(getString(R.string.reset_quiz), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         resetQuiz();
                     }
                 });
-                builder.setCancelable(false);
+                builder.create();
             }
         }
         else {
