@@ -2,6 +2,7 @@ package edu.orangecoastcollege.cs273.flagquiz;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
         mButtons[1] = (Button) findViewById(R.id.button2);
         mButtons[2] = (Button) findViewById(R.id.button3);
         mButtons[3] = (Button) findViewById(R.id.button4);
+        /* mButtons[4] = (Button) findViewById(R.id.button5);
+        mButtons[5] = (Button) findViewById(R.id.button6);
+        mButtons[6] = (Button) findViewById(R.id.button7);
+        mButtons[7] = (Button) findViewById(R.id.button8); */
 
         resetQuiz();
     }
@@ -193,5 +200,23 @@ public class MainActivity extends AppCompatActivity {
             mAnswerTextView.setTextColor(ContextCompat.getColor(this, R.color.incorrect_answer));
             clickedButton.setEnabled(false);
         }
+    }
+
+    //Override onCreateOptions settings menu
+
+    // Inflates setting menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    // Responds to userclicking gear
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        startActivity(settingsIntent);
+        return super.onOptionsItemSelected(item);
     }
 }

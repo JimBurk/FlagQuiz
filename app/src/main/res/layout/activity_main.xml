@@ -93,7 +93,6 @@
             android:text="New Button"/>
     </LinearLayout>
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,4 +103,5 @@
         android:gravity="center_horizontal"
         android:textSize="@dimen/answer_size"
         android:textStyle="bold"/>
-</LinearLayout>
+
+    </LinearLayout>
