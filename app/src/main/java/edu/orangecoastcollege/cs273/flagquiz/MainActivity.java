@@ -68,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
         mButtons[3] = (Button) findViewById(R.id.button4);
 
         resetQuiz();
-
-        // TODO: Get references to GUI components (textviews and imageview)
-        // TODO: Put all 4 buttons in the array (mButtons)
-        // TODO: Set mQuestionNumberTextView's text to the appropriate strings.xml resource
-        // TODO: Load all the countries from the JSON file using the JSONLoader
-        // TODO: Call the method resetQuiz() to start the quiz.
     }
 
     /**
@@ -96,15 +90,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         loadNextFlag();
-
-        // TODO: Reset the number of correct guesses made
-        // TODO: Reset the total number of guesses the user made
-        // TODO: Clear list of quiz countries (for prior games played)
-
-        // TODO: Randomly add FLAGS_IN_QUIZ (10) countries from the mAllCountriesList into the mQuizCountriesList
-        // TODO: Ensure no duplicate countries (e.g. don't add a country if it's already in mQuizCountriesList)
-
-        // TODO: Start the quiz by calling loadNextFlag
     }
 
     /**
@@ -114,15 +99,16 @@ public class MainActivity extends AppCompatActivity {
     private void loadNextFlag() {
         mCorrectCountry = mQuizCountriesList.remove(0);
 
-        // TODO: Initialize the mCorrectCountry by removing the item at position 0 in the mQuizCountries
-        // TODO: Clear the mAnswerTextView so that it doesn't show text from the previous question
+        // Initialize the mCorrectCountry by removing the item at position 0 in the mQuizCountries
+        // Clear the mAnswerTextView so that it doesn't show text from the previous question
 
         mAnswerTextView.setText("");
-        // TODO: Display current question number in the mQuestionNumberTextView
+
+        // Display current question number in the mQuestionNumberTextView
         int questionNumber = FLAGS_IN_QUIZ - mQuizCountriesList.size();
         mQuestionNumberTextView.setText(getString(R.string.question, questionNumber, FLAGS_IN_QUIZ));
 
-        // TODO: Use AssetManager to load next image from assets folder
+        // Use AssetManager to load next image from assets folder
 
         AssetManager am = getAssets();
         try {
@@ -134,12 +120,12 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Error loading image: " + mCorrectCountry.getFileName(), e);
         }
 
-        // TODO: Get an InputStream to the asset representing the next flag
-        // TODO: and try to use the InputStream to create a Drawable
-        // TODO: The file name can be retrieved from the correct country's file name.
-        // TODO: Set the image drawable to the correct flag.
+        // Get an InputStream to the asset representing the next flag
+        // and try to use the InputStream to create a Drawable
+        // The file name can be retrieved from the correct country's file name.
+        // Set the image drawable to the correct flag.
 
-        // TODO: Shuffle the order of all the countries (use Collections.shuffle)
+        // Shuffle the order of all the countries (use Collections.shuffle)
 
         do {
             Collections.shuffle(mAllCountriesList);
@@ -155,9 +141,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mButtons[rng.nextInt(mButtons.length)].setText((mCorrectCountry.getName()));
-
-        // TODO: After the loop, randomly replace one of the 4 buttons with the name of the correct country
-
     }
 
     /**
@@ -202,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 builder.create();
+                builder.show();
             }
         }
         else {
@@ -209,21 +193,5 @@ public class MainActivity extends AppCompatActivity {
             mAnswerTextView.setTextColor(ContextCompat.getColor(this, R.color.incorrect_answer));
             clickedButton.setEnabled(false);
         }
-
-        // TODO: Downcast the View v into a Button (since it's one of the 4 buttons)
-        // TODO: Get the country's name from the text of the button
-
-        // TODO: If the guess matches the correct country's name, increment the number of correct guesses,
-        // TODO: then display correct answer in green text.  Also, disable all 4 buttons (can't keep guessing once it's correct)
-        // TODO: Nested in this decision, if the user has completed all 10 questions, show an AlertDialog
-        // TODO: with the statistics and an option to Reset Quiz
-
-        // TODO: Else, the answer is incorrect, so display "Incorrect Guess!" in red
-        // TODO: and disable just the incorrect button.
-
-
-
     }
-
-
 }
